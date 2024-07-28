@@ -12,7 +12,7 @@ export default function EditProduct() {
     if (!id) {
       return;
     }
-    axios.get("/api/products?id=" + id).then((response) => {
+    axios.get("/api/product?id=" + id).then((response) => {
       setProductInfo(response.data);
     });
   }, [id]);
@@ -22,7 +22,7 @@ export default function EditProduct() {
         <div className="sm:flex sm:items-center sm:justify-center">
           <div className="text-center sm:text-left">
             <p className="my-4 text-xl text-red-500">
-              Editing
+              Editing{" "}
               <span className="text-green-600">{productInfo?.title}</span>
             </p>
           </div>

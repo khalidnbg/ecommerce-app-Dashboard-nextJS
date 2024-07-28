@@ -29,7 +29,7 @@ export default function Orders() {
       ) : orders.length === 0 ? (
         <p className="text-center text-4xl py-10">No Order Found!</p>
       ) : (
-        orders.map((order) => (
+        orders.map((order, index) => (
           <div
             key={order._id}
             className="bg-white rounded-lg shadow-md p-4 mb-4"
@@ -74,7 +74,10 @@ export default function Orders() {
                         </td>
                         <td className="py-2 px-4">{product.quantity}</td>
                         <td className="py-2 px-4">
-                          ${(product.price_data?.unit_amount / 100).toFixed(2)}
+                          $
+                          {(product.price_data?.unit_amount / 100 || 0).toFixed(
+                            2
+                          )}
                         </td>
                       </tr>
                     ))}

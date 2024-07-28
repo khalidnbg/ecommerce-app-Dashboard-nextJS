@@ -40,22 +40,19 @@ export default function Product() {
   return (
     <>
       <header>
-        <div className="mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8 max-md:flex-col">
-          <div className="sm:flex sm:items-center sm:justify-between">
+        <div className="mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="text-center sm:text-left">
-              <h1 className="text-3xl font-bold text-gray-900 sm:text-3xl">
-                All Products
-              </h1>
+              <h1 className="text-3xl font-bold text-gray-900">All Products</h1>
               <p className="mt-1.5 text-md text-gray-500">
                 Let&apos;s create a new product! 🎉
               </p>
             </div>
 
-            <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center max-w-md">
+            <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
               <Link
                 href={"/products/new"}
                 className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-green-600 px-5 py-3 text-green-600 transition hover:bg-green-50 hover:text-green-700 focus:outline-none focus:ring"
-                type="button"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +76,7 @@ export default function Product() {
         </div>
       </header>
 
-      <div className="overflow-x-auto mx-auto px-4">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
         {loading ? (
           <div className="flex justify-center items-center">
             <Spinner />
@@ -88,56 +85,30 @@ export default function Product() {
           <p className="w-full text-center">No products available.</p>
         ) : (
           <>
-            <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md border rounded">
-              <thead>
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-4 font-medium text-gray-900"
-                  >
-                    Name
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-4 font-medium text-gray-900"
-                  >
-                    Description
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-4 font-medium text-gray-900"
-                  >
-                    Price
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-4 font-medium text-gray-900"
-                  ></th>
-                </tr>
-              </thead>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {productsToDisplay.map((product, index) => (
-                <tbody className="divide-y divide-gray-200" key={product._id}>
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      {index + 1}
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
-                      <div className="h-10 w-10">
-                        <img
-                          className="h-full w-full rounded-full object-cover object-center bg-gray-200"
-                          src={product.images?.[0] || img1}
-                          alt={product.title}
-                        />
-                      </div>
+                <div
+                  key={product._id}
+                  className="border rounded-lg shadow-sm p-4 bg-white"
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="h-32 w-32 mb-4">
+                      <img
+                        className="h-full w-full rounded object-cover object-center bg-gray-200"
+                        src={product.images?.[0] || img1}
+                        alt={product.title}
+                      />
+                    </div>
+                    <h2 className="text-lg font-bold text-gray-900">
                       {product.title}
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">
+                    </h2>
+                    <p className="mt-2 text-md text-gray-700 truncate">
                       {product.description}
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      Ksh. {formatPrice(product.price)}
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
+                    </p>
+                    <p className="mt-2 text-md text-gray-900 font-semibold">
+                      MAD. {formatPrice(product.price)}
+                    </p>
+                    <div className="mt-4 flex space-x-4">
                       <Link
                         href={"/products/edit/" + product._id}
                         className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
@@ -150,11 +121,11 @@ export default function Product() {
                       >
                         Delete
                       </Link>
-                    </td>
-                  </tr>
-                </tbody>
+                    </div>
+                  </div>
+                </div>
               ))}
-            </table>
+            </div>
 
             {/* Pagination controls */}
             {totalPages > 1 && (

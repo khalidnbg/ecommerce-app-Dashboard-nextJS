@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
 import toast from "react-hot-toast";
@@ -22,7 +22,7 @@ export default function Product({
   const [description, setDescription] = useState(existingDescription || "");
   const [price, setPrice] = useState(existingPrice || "");
   const [images, setImages] = useState(existingImages || []);
-  const [details, setDetails] = useState(existingDetails || ""); // Added details
+  const [details, setDetails] = useState(existingDetails || "");
   const [brand, setBrand] = useState(existingBrand || "");
   const [colors, setColors] = useState(existingColors || "");
   const [gender, setGender] = useState(existingGender || "");
@@ -34,6 +34,12 @@ export default function Product({
   const router = useRouter();
   const [isUploading, setIsUploading] = useState(false);
   const uploadImagesQueue = [];
+
+  useEffect(() => {
+    axios.get("/api/categories").then((result) => {
+      setCategories(result.data);
+    });
+  }, []);
 
   async function createProduct(ev) {
     ev.preventDefault();
@@ -51,7 +57,7 @@ export default function Product({
       price,
       details,
       images,
-      // category,
+      category,
       brand,
       gender,
       sizes,
