@@ -7,16 +7,74 @@ export default async function handle(req, res) {
   await mongooseConnect();
 
   if (method === "POST") {
-    const { title, description, price, images } = req.body;
+    const {
+      title,
+      description,
+      price,
+      images,
+      category,
+      details,
+      brand,
+      gender,
+      sizes,
+      colors,
+    } = req.body;
 
     const productDoc = await Product.create({
       title,
       description,
       price,
       images,
+      category,
+      details,
+      brand,
+      gender,
+      sizes,
+      colors,
     });
     res.json(productDoc);
   }
+
+  if (method === "GET") {
+    if (req.query?.id) {
+      res.json(await Product.findById(req.query?.id));
+    } else {
+      res.json(await Product.find());
+    }
+  }
+
+  if (method === "PUT") {
+    const {
+      title,
+      description,
+      price,
+      _id,
+      images,
+      category,
+      details,
+      brand,
+      gender,
+      sizes,
+      colors,
+    } = req.body;
+    await Product.updateOne(
+      { _id },
+      {
+        title,
+        description,
+        price,
+        images,
+        category,
+        details,
+        brand,
+        gender,
+        sizes,
+        colors,
+      }
+    );
+    res.json(true);
+  }
+
   if (method === "DELETE") {
     if (req.query?.id) {
       await Product.deleteOne({ _id: req.query?.id });

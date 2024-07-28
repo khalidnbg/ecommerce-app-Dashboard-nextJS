@@ -1,9 +1,9 @@
 import "@/styles/globals.css";
-
 import { Poppins } from "next/font/google";
-
 import { SessionProvider } from "next-auth/react";
-import Header from "@/components/Header";
+import Header from "@/pages/components/Header";
+import { Toaster } from "react-hot-toast";
+import Footer from "@/pages/components/Footer";
 
 const inter = Poppins({ subsets: ["latin"], weight: "400" });
 
@@ -12,13 +12,15 @@ export default function App({
   pageProps: { session, ...pageProps },
 }) {
   return (
-    <main
-      className={`mx-auto max-w-screen-7xl px-4 sm:px-6 lg:px-8 ${inter.className}`}
-    >
-      <SessionProvider session={session}>
+    <SessionProvider session={session}>
+      <main className={`${inter.className}`}>
         <Header />
-        <Component {...pageProps} />
-      </SessionProvider>
-    </main>
+        <div className="min-h-screen max-w-screen-2xl mx-auto">
+          <Component {...pageProps} />
+          <Toaster position="top-center" />
+        </div>
+        <Footer />
+      </main>
+    </SessionProvider>
   );
 }
