@@ -22,7 +22,6 @@ export default function Categories() {
   function fetchCategories() {
     axios.get("/api/categories").then((response) => {
       setCategories(response.data);
-      console.log(response.data);
     });
   }
 
