@@ -2,6 +2,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import img1 from "@/public/product.png";
+import Spinner from "../components/Spinner";
 
 // Utility function to format price with a comma for thousands
 const formatPrice = (price) => {
@@ -79,7 +80,11 @@ export default function Product() {
       </header>
 
       <div className="overflow-x-auto mx-auto px-4">
-        {products.length === 0 ? (
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <Spinner />
+          </div>
+        ) : products.length === 0 ? (
           <p className="w-full text-center">No products available.</p>
         ) : (
           <>
