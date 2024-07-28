@@ -15,7 +15,7 @@ export default function App({
     <SessionProvider session={session}>
       <main className={`${inter.className}`}>
         <Header />
-        <div className="min-h-screen max-w-screen-2xl mx-auto p-4">
+        <div className="min-h-screen max-w-screen-2xl mx-auto">
           <Component {...pageProps} />
           <Toaster position="top-center" />
         </div>
